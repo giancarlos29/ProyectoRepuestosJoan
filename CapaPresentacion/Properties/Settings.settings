@@ -1,0 +1,29 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CapaPresentacion.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ITBIS" GenerateDefaultValueInCode="false" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">18</Value>
+    </Setting>
+    <Setting Name="CFinalSecuencia" GenerateDefaultValueInCode="false" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">25</Value>
+    </Setting>
+    <Setting Name="FechaVencimiento" GenerateDefaultValueInCode="false" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">2019-12-31</Value>
+    </Setting>
+    <Setting Name="CFiscalSecuencia" GenerateDefaultValueInCode="false" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">22</Value>
+    </Setting>
+    <Setting Name="SistemaFacturacionRepuestoJoanConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A2S2DPV\SQLEXPRESS;Initial Catalog=SistemaFacturacionRepuestoJoan;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A2S2DPV\SQLEXPRESS;Initial Catalog=SistemaFacturacionRepuestoJoan;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework</Value>
+    </Setting>
+    <Setting Name="CNotaDeCredito" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

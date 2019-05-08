@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e2a770aa23584403bf8d4392e010a545" Name="Diagram1" ZoomLevel="79">
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.Menu" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.SubMenu" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.User" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.CategoriasProd" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.DetalleFactura" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.Factura" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.Producto" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_SubMenu_Menu" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.TiposPago" Width="1.5" PointX="9.375" PointY="3.75" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_Productos_CategoriasProd" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_DetalleFacturas_Facturas" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_DetalleFacturas_Productos" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_Facturas_TiposPago" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_Facturas_Users" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.Cliente" Width="1.5" PointX="0.75" PointY="11.375" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.Proveedore" Width="1.5" PointX="7.375" PointY="7" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_Facturas_Clientes" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_Productos_Proveedores" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.TiposFactura" Width="1.5" PointX="8.375" PointY="0.875" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_Facturas_TiposFactura" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.OrdenesCompra" Width="1.5" PointX="9.375" PointY="6.75" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.DetalleOrdenesCompra" Width="1.5" PointX="7.125" PointY="10.625" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_PedidosCompletados_PedidosPendientes" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_DetalleOrdenesCompra_OrdenesCompra" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.FacturasCompra" Width="1.5" PointX="9.375" PointY="10.75" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_FacturasCompra_OrdenesCompra" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_FacturasCompra_Proveedores" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_FacturasCompra_TiposPago" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.CobrosVentasCredito" Width="1.5" PointX="5.25" PointY="14.75" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.LineasCreditoVenta" Width="1.5" PointX="3" PointY="14.75" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_CobrosVentasCredito_LineasCredito" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_LineasCredito_Facturas" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_CobrosVentasCredito_Users" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.DetalleNotaDeCredito" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SistemaFacturacionRepuestoJoanModel.NotasDeCredito" Width="1.5" PointX="11.375" PointY="4.75" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_DetalleNotaDeCredito_NotasDeCredito" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_DetalleNotaDeCredito_Productos" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_NotasDeCredito_Facturas" />
+        <AssociationConnector Association="SistemaFacturacionRepuestoJoanModel.FK_NotasDeCredito_Users" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

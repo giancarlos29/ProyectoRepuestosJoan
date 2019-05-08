@@ -1,0 +1,1504 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SistemaFacturacionRepuestoJoanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Menu1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="SubMenus" Relationship="Self.FK_SubMenu_Menu" FromRole="Menu" ToRole="SubMenu" />
+  </EntityType>
+  <EntityType Name="SubMenu">
+    <Key>
+      <PropertyRef Name="SubMenuID" />
+    </Key>
+    <Property Name="SubMenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubMenu1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MenuID" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Menu" Relationship="Self.FK_SubMenu_Menu" FromRole="SubMenu" ToRole="Menu" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserLevel" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Facturas" Relationship="SistemaFacturacionRepuestoJoanModel.FK_Facturas_Users" FromRole="User" ToRole="Factura" />
+    <NavigationProperty Name="CobrosVentasCreditoes" Relationship="SistemaFacturacionRepuestoJoanModel.FK_CobrosVentasCredito_Users" FromRole="User" ToRole="CobrosVentasCredito" />
+    <NavigationProperty Name="NotasDeCreditoes" Relationship="SistemaFacturacionRepuestoJoanModel.FK_NotasDeCredito_Users" FromRole="User" ToRole="NotasDeCredito" />
+  </EntityType>
+  <EntityType Name="CategoriasProd">
+    <Key>
+      <PropertyRef Name="CategoriaProdID" />
+    </Key>
+    <Property Name="CategoriaProdID" Type="Int32" Nullable="false" />
+    <Property Name="Categoria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Productos" Relationship="SistemaFacturacionRepuestoJoanModel.FK_Productos_CategoriasProd" FromRole="CategoriasProd" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="DetalleFactura">
+    <Key>
+      <PropertyRef Name="DetalleFacturaID" />
+    </Key>
+    <Property Name="DetalleFacturaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FacturaID" Type="Int32" Nullable="false" />
+    <Property Name="ProductoID" Type="Int32" Nullable="false" />
+    <Property Name="CantVen" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Factura" Relationship="SistemaFacturacionRepuestoJoanModel.FK_DetalleFacturas_Facturas" FromRole="DetalleFactura" ToRole="Factura" />
+    <NavigationProperty Name="Producto" Relationship="SistemaFacturacionRepuestoJoanModel.FK_DetalleFacturas_Productos" FromRole="DetalleFactura" ToRole="Producto" />
+    <Property Name="Precio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="ITBIS" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Descuento" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Factura">
+    <Key>
+      <PropertyRef Name="FacturaID" />
+    </Key>
+    <Property Name="FacturaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClienteID" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TipoPagoID" Type="Int32" Nullable="false" />
+    <Property Name="FechaVencimiento" Type="DateTime" Precision="0" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DetalleFacturas" Relationship="SistemaFacturacionRepuestoJoanModel.FK_DetalleFacturas_Facturas" FromRole="Factura" ToRole="DetalleFactura" />
+    <NavigationProperty Name="TiposPago" Relationship="SistemaFacturacionRepuestoJoanModel.FK_Facturas_TiposPago" FromRole="Factura" ToRole="TiposPago" />
+    <NavigationProperty Name="User" Relationship="SistemaFacturacionRepuestoJoanModel.FK_Facturas_Users" FromRole="Factura" ToRole="User" />
+    <NavigationProperty Name="Cliente" Relationship="SistemaFacturacionRepuestoJoanModel.FK_Facturas_Clientes" FromRole="Factura" ToRole="Cliente" />
+    <Property Name="NCF" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RNC" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="TipoFacturaID" Type="Int32" Nullable="false" />
+    <Property Name="Entidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TiposFactura" Relationship="SistemaFacturacionRepuestoJoanModel.FK_Facturas_TiposFactura" FromRole="Factura" ToRole="TiposFactura" />
+    <NavigationProperty Name="LineasCreditoVentas" Relationship="SistemaFacturacionRepuestoJoanModel.FK_LineasCredito_Facturas" FromRole="Factura" ToRole="LineasCreditoVenta" />
+    <NavigationProperty Name="NotasDeCreditoes" Relationship="SistemaFacturacionRepuestoJoanModel.FK_NotasDeCredito_Facturas" FromRole="Factura" ToRole="NotasDeCredito" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="ProductoID" />
+    </Key>
+    <Property Name="ProductoID" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Referencia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CategoriaID" Type="Int32" Nullable="false" />
+    <Property Name="Marca" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Existencia" Type="Double" Nullable="false" />
+    <Property Name="PrecioCompra" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="PrecioVenta" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="ProveedorID" Type="Int32" Nullable="false" />
+    <Property Name="CodigoBarra" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Calidad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CategoriasProd" Relationship="SistemaFacturacionRepuestoJoanModel.FK_Productos_CategoriasProd" FromRole="Producto" ToRole="CategoriasProd" />
+    <NavigationProperty Name="DetalleFacturas" Relationship="SistemaFacturacionRepuestoJoanModel.FK_DetalleFacturas_Productos" FromRole="Producto" ToRole="DetalleFactura" />
+    <NavigationProperty Name="Proveedore" Relationship="SistemaFacturacionRepuestoJoanModel.FK_Productos_Proveedores" FromRole="Producto" ToRole="Proveedore" />
+    <Property Name="Descuento" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="ITBIS" Type="Boolean" Nullable="false" />
+    <Property Name="CantMin" Type="Double" Nullable="false" />
+    <Property Name="CantMax" Type="Double" Nullable="false" />
+    <NavigationProperty Name="DetalleNotaDeCreditoes" Relationship="SistemaFacturacionRepuestoJoanModel.FK_DetalleNotaDeCredito_Productos" FromRole="Producto" ToRole="DetalleNotaDeCredito" />
+  </EntityType>
+  <Association Name="FK_SubMenu_Menu">
+    <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+    <End Role="SubMenu" Type="Self.SubMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="SubMenu">
+        <PropertyRef Name="MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SistemaFacturacionRepuestoJoanEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Menus" EntityType="Self.Menu" />
+    <EntitySet Name="SubMenus" EntityType="Self.SubMenu" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="CategoriasProds" EntityType="Self.CategoriasProd" />
+    <EntitySet Name="DetalleFacturas" EntityType="Self.DetalleFactura" />
+    <EntitySet Name="Facturas" EntityType="Self.Factura" />
+    <EntitySet Name="Productos" EntityType="Self.Producto" />
+    <AssociationSet Name="FK_SubMenu_Menu" Association="Self.FK_SubMenu_Menu">
+      <End Role="Menu" EntitySet="Menus" />
+      <End Role="SubMenu" EntitySet="SubMenus" />
+    </AssociationSet>
+    <FunctionImport Name="proc_Menu_1" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_Menu_1_Result)" />
+    <FunctionImport Name="proc_Menu_2" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_Menu_2_Result)" />
+    <FunctionImport Name="proc_SubMenu_1" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_SubMenu_1_Result)" />
+    <FunctionImport Name="proc_SubMenu_2" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_SubMenu_2_Result)" />
+    <FunctionImport Name="proc_UsuariosInsert">
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="UserPassword" Mode="In" Type="String" />
+      <Parameter Name="UserLevel" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="TiposPagoes" EntityType="SistemaFacturacionRepuestoJoanModel.TiposPago" />
+    <FunctionImport Name="proc_ValidarUsuario" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_ValidarUsuario_Result)">
+      <Parameter Name="User" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="Resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <AssociationSet Name="FK_Productos_CategoriasProd" Association="SistemaFacturacionRepuestoJoanModel.FK_Productos_CategoriasProd">
+      <End Role="CategoriasProd" EntitySet="CategoriasProds" />
+      <End Role="Producto" EntitySet="Productos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleFacturas_Facturas" Association="SistemaFacturacionRepuestoJoanModel.FK_DetalleFacturas_Facturas">
+      <End Role="Factura" EntitySet="Facturas" />
+      <End Role="DetalleFactura" EntitySet="DetalleFacturas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleFacturas_Productos" Association="SistemaFacturacionRepuestoJoanModel.FK_DetalleFacturas_Productos">
+      <End Role="Producto" EntitySet="Productos" />
+      <End Role="DetalleFactura" EntitySet="DetalleFacturas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Facturas_TiposPago" Association="SistemaFacturacionRepuestoJoanModel.FK_Facturas_TiposPago">
+      <End Role="TiposPago" EntitySet="TiposPagoes" />
+      <End Role="Factura" EntitySet="Facturas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Facturas_Users" Association="SistemaFacturacionRepuestoJoanModel.FK_Facturas_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Factura" EntitySet="Facturas" />
+    </AssociationSet>
+    <FunctionImport Name="proc_ActualizarCategoriaProd">
+      <Parameter Name="CategoriaProdID" Mode="In" Type="Int32" />
+      <Parameter Name="Categoria" Mode="In" Type="String" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_ActualizarCliente">
+      <Parameter Name="ClienteID" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="CedulaORnc" Mode="In" Type="String" />
+      <Parameter Name="Direccion" Mode="In" Type="String" />
+      <Parameter Name="Contacto_1" Mode="In" Type="String" />
+      <Parameter Name="Contacto_2" Mode="In" Type="String" />
+      <Parameter Name="Descuento" Mode="In" Type="Double" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_ActualizarProducto">
+      <Parameter Name="ProductoID" Mode="In" Type="Int32" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Referencia" Mode="In" Type="String" />
+      <Parameter Name="CategoriaID" Mode="In" Type="Int32" />
+      <Parameter Name="Marca" Mode="In" Type="String" />
+      <Parameter Name="Existencia" Mode="In" Type="Double" />
+      <Parameter Name="PrecioCompra" Mode="In" Type="Decimal" />
+      <Parameter Name="PrecioVenta" Mode="In" Type="Decimal" />
+      <Parameter Name="ProveedorID" Mode="In" Type="Int32" />
+      <Parameter Name="CodigoBarra" Mode="In" Type="String" />
+      <Parameter Name="Calidad" Mode="In" Type="String" />
+      <Parameter Name="ITBIS" Mode="In" Type="Boolean" />
+      <Parameter Name="Descuento" Mode="In" Type="Decimal" />
+      <Parameter Name="CantMin" Mode="In" Type="Double" />
+      <Parameter Name="CantMax" Mode="In" Type="Double" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_ActualizarProveedor">
+      <Parameter Name="ProveedorID" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="CedulaORnc" Mode="In" Type="String" />
+      <Parameter Name="Direccion" Mode="In" Type="String" />
+      <Parameter Name="Contacto_1" Mode="In" Type="String" />
+      <Parameter Name="Contacto_2" Mode="In" Type="String" />
+      <Parameter Name="DatoAdicional" Mode="In" Type="String" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_ActualizarTiposPagos">
+      <Parameter Name="TipoPagoID" Mode="In" Type="Int32" />
+      <Parameter Name="TipoDePago" Mode="In" Type="String" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BorrarCategoriaProd">
+      <Parameter Name="CategoriaProdID" Mode="In" Type="Int32" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BorrarCliente">
+      <Parameter Name="ClienteID" Mode="In" Type="Int32" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BorrarProducto">
+      <Parameter Name="ProductoID" Mode="In" Type="Int32" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BorrarProveedor">
+      <Parameter Name="ProveedorID" Mode="In" Type="Int32" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BorrarTiposPagos">
+      <Parameter Name="TipoPagoID" Mode="In" Type="Int32" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarTodasCategoriasProd" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodasCategoriasProd_Result)" />
+    <FunctionImport Name="proc_CargarTodasFacturas" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodasFacturas_Result)" />
+    <FunctionImport Name="proc_CargarTodosClientes" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodosClientes_Result)" />
+    <FunctionImport Name="proc_CargarTodosProductos" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodosProductos_Result)" />
+    <FunctionImport Name="proc_CargarTodosProveedores" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodosProveedores_Result)" />
+    <FunctionImport Name="proc_CargarTodosTiposFactura" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodosTiposFactura_Result)" />
+    <FunctionImport Name="proc_CargarTodosTiposPagos" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodosTiposPagos_Result)" />
+    <FunctionImport Name="proc_InsertarCategoriaProd">
+      <Parameter Name="CategoriaProdID" Mode="InOut" Type="Int32" />
+      <Parameter Name="Categoria" Mode="In" Type="String" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_InsertarCliente">
+      <Parameter Name="ClienteID" Mode="InOut" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="CedulaORnc" Mode="In" Type="String" />
+      <Parameter Name="Direccion" Mode="In" Type="String" />
+      <Parameter Name="Contacto_1" Mode="In" Type="String" />
+      <Parameter Name="Contacto_2" Mode="In" Type="String" />
+      <Parameter Name="Descuento" Mode="In" Type="Double" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_InsertarFactura">
+      <Parameter Name="FacturaID" Mode="InOut" Type="Int32" />
+      <Parameter Name="ClienteID" Mode="In" Type="Int32" />
+      <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+      <Parameter Name="TipoPagoID" Mode="In" Type="Int32" />
+      <Parameter Name="TipoFacturaID" Mode="In" Type="Int32" />
+      <Parameter Name="NCF" Mode="In" Type="String" />
+      <Parameter Name="FechaVencimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="RNC" Mode="In" Type="String" />
+      <Parameter Name="Entidad" Mode="In" Type="String" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_InsertarProducto">
+      <Parameter Name="ProductoID" Mode="InOut" Type="Int32" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Referencia" Mode="In" Type="String" />
+      <Parameter Name="CategoriaID" Mode="In" Type="Int32" />
+      <Parameter Name="Marca" Mode="In" Type="String" />
+      <Parameter Name="Existencia" Mode="In" Type="Double" />
+      <Parameter Name="PrecioCompra" Mode="In" Type="Decimal" />
+      <Parameter Name="PrecioVenta" Mode="In" Type="Decimal" />
+      <Parameter Name="ProveedorID" Mode="In" Type="Int32" />
+      <Parameter Name="CodigoBarra" Mode="In" Type="String" />
+      <Parameter Name="Calidad" Mode="In" Type="String" />
+      <Parameter Name="ITBIS" Mode="In" Type="Boolean" />
+      <Parameter Name="Descuento" Mode="In" Type="Decimal" />
+      <Parameter Name="CantMin" Mode="In" Type="Double" />
+      <Parameter Name="CantMax" Mode="In" Type="Double" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_InsertarProveedor">
+      <Parameter Name="ProveedorID" Mode="InOut" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="CedulaORnc" Mode="In" Type="String" />
+      <Parameter Name="Direccion" Mode="In" Type="String" />
+      <Parameter Name="Contacto_1" Mode="In" Type="String" />
+      <Parameter Name="Contacto_2" Mode="In" Type="String" />
+      <Parameter Name="DatoAdicional" Mode="In" Type="String" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_InsertarTipoPago">
+      <Parameter Name="TipoPagoID" Mode="InOut" Type="Int32" />
+      <Parameter Name="TipoDePago" Mode="In" Type="String" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_InsertarTiposFactura">
+      <Parameter Name="TipoFacturaID" Mode="InOut" Type="Int32" />
+      <Parameter Name="TipoDeFactura" Mode="In" Type="String" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <EntitySet Name="Clientes" EntityType="SistemaFacturacionRepuestoJoanModel.Cliente" />
+    <EntitySet Name="Proveedores" EntityType="SistemaFacturacionRepuestoJoanModel.Proveedore" />
+    <AssociationSet Name="FK_Facturas_Clientes" Association="SistemaFacturacionRepuestoJoanModel.FK_Facturas_Clientes">
+      <End Role="Cliente" EntitySet="Clientes" />
+      <End Role="Factura" EntitySet="Facturas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Productos_Proveedores" Association="SistemaFacturacionRepuestoJoanModel.FK_Productos_Proveedores">
+      <End Role="Proveedore" EntitySet="Proveedores" />
+      <End Role="Producto" EntitySet="Productos" />
+    </AssociationSet>
+    <FunctionImport Name="proc_BuscarClientesPorID" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_BuscarClientesPorID_Result)">
+      <Parameter Name="ClienteID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BuscarProveedoresPorID" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_BuscarProveedoresPorID_Result)">
+      <Parameter Name="ProveedorID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BuscarProductosPorID" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_BuscarProductosPorID_Result)">
+      <Parameter Name="ProductoID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BuscarProductosPorCodigoBarra" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_BuscarProductosPorCodigoBarra_Result)">
+      <Parameter Name="CodigoBarra" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="proc_ActualizarCantidadProducto">
+      <Parameter Name="CodigoBarra" Mode="In" Type="String" />
+      <Parameter Name="Existencia" Mode="In" Type="Double" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BuscarCantidadProductosPorCodigoBarra" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_BuscarCantidadProductosPorCodigoBarra_Result)">
+      <Parameter Name="CodigoBarra" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarTodasFacturasCFinal" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodasFacturasCFinal_Result)" />
+    <FunctionImport Name="proc_InsertarDetalleFactura">
+      <Parameter Name="DetalleFacturaID" Mode="InOut" Type="Int32" />
+      <Parameter Name="FacturaID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductoID" Mode="In" Type="Int32" />
+      <Parameter Name="CantVen" Mode="In" Type="Double" />
+      <Parameter Name="Precio" Mode="In" Type="Decimal" />
+      <Parameter Name="ITBIS" Mode="In" Type="Decimal" />
+      <Parameter Name="Descuento" Mode="In" Type="Decimal" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_InsertarFacturaCFinal">
+      <Parameter Name="FacturaID" Mode="InOut" Type="Int32" />
+      <Parameter Name="ClienteID" Mode="In" Type="Int32" />
+      <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+      <Parameter Name="TipoPagoID" Mode="In" Type="Int32" />
+      <Parameter Name="NCF" Mode="In" Type="String" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="Observaciones" Mode="In" Type="String" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <EntitySet Name="TiposFacturas" EntityType="SistemaFacturacionRepuestoJoanModel.TiposFactura" />
+    <AssociationSet Name="FK_Facturas_TiposFactura" Association="SistemaFacturacionRepuestoJoanModel.FK_Facturas_TiposFactura">
+      <End Role="TiposFactura" EntitySet="TiposFacturas" />
+      <End Role="Factura" EntitySet="Facturas" />
+    </AssociationSet>
+    <FunctionImport Name="proc_CargarFacturaVentaCFinal" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarFacturaVentaCFinal_Result)" />
+    <FunctionImport Name="proc_CargarFacturaVentaCFiscal" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarFacturaVentaCFiscal_Result)" />
+    <FunctionImport Name="proc_VerTipoUltimaFactura" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_VerTipoUltimaFactura_Result)" />
+    <FunctionImport Name="proc_CargarCategoriasProd" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarCategoriasProd_Result)" />
+    <FunctionImport Name="proc_ActualizarTiposFacturas">
+      <Parameter Name="TipoFacturaID" Mode="In" Type="Int32" />
+      <Parameter Name="TipoDeFactura" Mode="In" Type="String" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BorrarTiposFacturas">
+      <Parameter Name="TipoFacturaID" Mode="In" Type="Int32" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarProductosComprar" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarProductosComprar_Result)" />
+    <FunctionImport Name="proc_CargarProductosExistBaja" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarProductosExistBaja_Result)" />
+    <FunctionImport Name="proc_InsertarOrdenCompra">
+      <Parameter Name="OrdenCompraID" Mode="InOut" Type="Int32" />
+      <Parameter Name="ProveedorID" Mode="In" Type="Int32" />
+      <Parameter Name="FechaPedido" Mode="In" Type="DateTime" />
+      <Parameter Name="Estatus" Mode="In" Type="Boolean" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <EntitySet Name="OrdenesCompras" EntityType="SistemaFacturacionRepuestoJoanModel.OrdenesCompra" />
+    <EntitySet Name="DetalleOrdenesCompras" EntityType="SistemaFacturacionRepuestoJoanModel.DetalleOrdenesCompra" />
+    <AssociationSet Name="FK_PedidosCompletados_PedidosPendientes" Association="SistemaFacturacionRepuestoJoanModel.FK_PedidosCompletados_PedidosPendientes">
+      <End Role="DetalleOrdenesCompra" EntitySet="DetalleOrdenesCompras" />
+      <End Role="OrdenesCompra" EntitySet="OrdenesCompras" />
+    </AssociationSet>
+    <FunctionImport Name="proc_InsertarDetalleOrdenCompra">
+      <Parameter Name="DetalleOrdenCompraID" Mode="InOut" Type="Int32" />
+      <Parameter Name="OrdenCompraID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductoID" Mode="In" Type="Int32" />
+      <Parameter Name="CantOrdenada" Mode="In" Type="Double" />
+      <Parameter Name="Precio" Mode="In" Type="Decimal" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarTodasOrdenesCompra" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodasOrdenesCompra_Result)" />
+    <FunctionImport Name="proc_BuscarProveedoresPorNombre" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_BuscarProveedoresPorNombre_Result)">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarProductosExistBajaPorProveedor" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarProductosExistBajaPorProveedor_Result)">
+      <Parameter Name="ProveedorID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BuscarProductosPorProveedor" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_BuscarProductosPorProveedor_Result)">
+      <Parameter Name="ProveedorID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <AssociationSet Name="FK_DetalleOrdenesCompra_OrdenesCompra" Association="SistemaFacturacionRepuestoJoanModel.FK_DetalleOrdenesCompra_OrdenesCompra">
+      <End Role="OrdenesCompra" EntitySet="OrdenesCompras" />
+      <End Role="DetalleOrdenesCompra" EntitySet="DetalleOrdenesCompras" />
+    </AssociationSet>
+    <FunctionImport Name="proc_CargarDetalleOrdenCompra" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarDetalleOrdenCompra_Result)">
+      <Parameter Name="OrdenCompraID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_ActualizarDetalleOrdenCompra">
+      <Parameter Name="OrdenCompraID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductoID" Mode="In" Type="Int32" />
+      <Parameter Name="CantidadOrdenada" Mode="In" Type="Double" />
+      <Parameter Name="CantidadRecibida" Mode="In" Type="Double" />
+      <Parameter Name="Precio" Mode="In" Type="Decimal" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BorrarDetalleOrdenCompra">
+      <Parameter Name="OrdenCompraID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductoID" Mode="In" Type="Int32" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CerrarOrdenCompra">
+      <Parameter Name="OrdenCompraID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_InsertarFacturaCompra">
+      <Parameter Name="FacturaCompraID" Mode="InOut" Type="Int32" />
+      <Parameter Name="ProveedorID" Mode="In" Type="Int32" />
+      <Parameter Name="OrdenCompraID" Mode="In" Type="Int32" />
+      <Parameter Name="NCF" Mode="In" Type="String" />
+      <Parameter Name="FechaVencimientoSecuencia" Mode="In" Type="DateTime" />
+      <Parameter Name="FechaFactura" Mode="In" Type="DateTime" />
+      <Parameter Name="TipoPagoID" Mode="In" Type="Int32" />
+      <Parameter Name="SubTotal" Mode="In" Type="Decimal" />
+      <Parameter Name="ITBIS" Mode="In" Type="Decimal" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <EntitySet Name="FacturasCompras" EntityType="SistemaFacturacionRepuestoJoanModel.FacturasCompra" />
+    <AssociationSet Name="FK_FacturasCompra_OrdenesCompra" Association="SistemaFacturacionRepuestoJoanModel.FK_FacturasCompra_OrdenesCompra">
+      <End Role="OrdenesCompra" EntitySet="OrdenesCompras" />
+      <End Role="FacturasCompra" EntitySet="FacturasCompras" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FacturasCompra_Proveedores" Association="SistemaFacturacionRepuestoJoanModel.FK_FacturasCompra_Proveedores">
+      <End Role="Proveedore" EntitySet="Proveedores" />
+      <End Role="FacturasCompra" EntitySet="FacturasCompras" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FacturasCompra_TiposPago" Association="SistemaFacturacionRepuestoJoanModel.FK_FacturasCompra_TiposPago">
+      <End Role="TiposPago" EntitySet="TiposPagoes" />
+      <End Role="FacturasCompra" EntitySet="FacturasCompras" />
+    </AssociationSet>
+    <FunctionImport Name="proc_VerTipoPagoUltimaFactura" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_VerTipoPagoUltimaFactura_Result)" />
+    <FunctionImport Name="proc_ActualizarLineaCreditoVenta">
+      <Parameter Name="LineaCreditoVentaID" Mode="In" Type="Int32" />
+      <Parameter Name="Estatus" Mode="In" Type="Boolean" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarTodasLineasCreditoVentas" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodasLineasCreditoVentas_Result)" />
+    <FunctionImport Name="proc_CargarTodasLineasCreditoVentasCompletadas" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodasLineasCreditoVentasCompletadas_Result)" />
+    <FunctionImport Name="proc_CargarTodasLineasCreditoVentasPendientes" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodasLineasCreditoVentasPendientes_Result)" />
+    <FunctionImport Name="proc_CargarTodasLineasCreditoVentasVencidas30" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodasLineasCreditoVentasVencidas30_Result)" />
+    <FunctionImport Name="proc_CargarTodasLineasCreditoVentasVencidas60" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodasLineasCreditoVentasVencidas60_Result)" />
+    <FunctionImport Name="proc_InsertarCobroVentaCredito">
+      <Parameter Name="CobroVentaCreditoID" Mode="InOut" Type="Int32" />
+      <Parameter Name="LineaCreditoVentaID" Mode="In" Type="Int32" />
+      <Parameter Name="FechaCobro" Mode="In" Type="DateTime" />
+      <Parameter Name="Monto" Mode="In" Type="Decimal" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="Concepto" Mode="In" Type="String" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_InsertarLineaCreditoVenta">
+      <Parameter Name="LineaCreditoVentaID" Mode="InOut" Type="Int32" />
+      <Parameter Name="FacturaID" Mode="In" Type="Int32" />
+      <Parameter Name="Estatus" Mode="In" Type="Boolean" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <EntitySet Name="CobrosVentasCreditoes" EntityType="SistemaFacturacionRepuestoJoanModel.CobrosVentasCredito" />
+    <EntitySet Name="LineasCreditoVentas" EntityType="SistemaFacturacionRepuestoJoanModel.LineasCreditoVenta" />
+    <AssociationSet Name="FK_CobrosVentasCredito_LineasCredito" Association="SistemaFacturacionRepuestoJoanModel.FK_CobrosVentasCredito_LineasCredito">
+      <End Role="LineasCreditoVenta" EntitySet="LineasCreditoVentas" />
+      <End Role="CobrosVentasCredito" EntitySet="CobrosVentasCreditoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LineasCredito_Facturas" Association="SistemaFacturacionRepuestoJoanModel.FK_LineasCredito_Facturas">
+      <End Role="Factura" EntitySet="Facturas" />
+      <End Role="LineasCreditoVenta" EntitySet="LineasCreditoVentas" />
+    </AssociationSet>
+    <FunctionImport Name="proc_VerificarLimite">
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+      <Parameter Name="ClienteID" Mode="In" Type="Int32" />
+      <Parameter Name="MontoFactura" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <AssociationSet Name="FK_CobrosVentasCredito_Users" Association="SistemaFacturacionRepuestoJoanModel.FK_CobrosVentasCredito_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="CobrosVentasCredito" EntitySet="CobrosVentasCreditoes" />
+    </AssociationSet>
+    <FunctionImport Name="proc_CargarCobrosVentaCredito" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarCobrosVentaCredito_Result)">
+      <Parameter Name="LineaVentaCreditoID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_ComprobarPagoLineaCreditoVenta">
+      <Parameter Name="LineaCreditoVentaID" Mode="In" Type="Int32" />
+      <Parameter Name="PagoLineaCreditoVenta" Mode="In" Type="Decimal" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_ComprobantePagoLineaCreditoVenta" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_ComprobantePagoLineaCreditoVenta_Result)" />
+    <FunctionImport Name="proc_CargarMontoFacturaNC" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarMontoFacturaNC_Result)">
+      <Parameter Name="FacturaID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarFacturasPendientes" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarFacturasPendientes_Result)">
+      <Parameter Name="ClienteID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarProductosFactura" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarProductosFactura_Result)">
+      <Parameter Name="FacturaID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_InsertarDetalleNotaDeCredito">
+      <Parameter Name="DetalleNotaDeCreditoID" Mode="InOut" Type="Int32" />
+      <Parameter Name="NotaDeCreditoID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductoID" Mode="In" Type="Int32" />
+      <Parameter Name="CantDevuelta" Mode="In" Type="Double" />
+      <Parameter Name="CantInventariada" Mode="In" Type="Double" />
+      <Parameter Name="Precio" Mode="In" Type="Decimal" />
+      <Parameter Name="Comentario" Mode="In" Type="String" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_InsertarNotaDeCredito">
+      <Parameter Name="NotaDeCreditoID" Mode="InOut" Type="Int32" />
+      <Parameter Name="FacturaID" Mode="In" Type="Int32" />
+      <Parameter Name="FacturaAplicarID" Mode="In" Type="Int32" />
+      <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="NCF" Mode="In" Type="String" />
+      <Parameter Name="FechaVencimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="ValorAplicado" Mode="In" Type="Decimal" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_ConfirmarFacturaYCliente">
+      <Parameter Name="FacturaID" Mode="In" Type="Int32" />
+      <Parameter Name="ClienteID" Mode="In" Type="Int32" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <EntitySet Name="DetalleNotaDeCreditoes" EntityType="SistemaFacturacionRepuestoJoanModel.DetalleNotaDeCredito" />
+    <EntitySet Name="NotasDeCreditoes" EntityType="SistemaFacturacionRepuestoJoanModel.NotasDeCredito" />
+    <FunctionImport Name="proc_BuscarLineaDeCreditoIDFactura" ReturnType="Collection(Int32)">
+      <Parameter Name="FacturaID" Mode="In" Type="Int32" />
+      <Parameter Name="LineaDeCreditoID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BuscarLineaDeCreditoVentaIDFactura">
+      <Parameter Name="FacturaID" Mode="In" Type="Int32" />
+      <Parameter Name="LineaDeCreditoID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarNotasDeCreditoCliente" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarNotasDeCreditoCliente_Result)">
+      <Parameter Name="ClienteID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarTodasNotasDeCredito" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodasNotasDeCredito_Result)" />
+    <AssociationSet Name="FK_DetalleNotaDeCredito_NotasDeCredito" Association="SistemaFacturacionRepuestoJoanModel.FK_DetalleNotaDeCredito_NotasDeCredito">
+      <End Role="NotasDeCredito" EntitySet="NotasDeCreditoes" />
+      <End Role="DetalleNotaDeCredito" EntitySet="DetalleNotaDeCreditoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleNotaDeCredito_Productos" Association="SistemaFacturacionRepuestoJoanModel.FK_DetalleNotaDeCredito_Productos">
+      <End Role="Producto" EntitySet="Productos" />
+      <End Role="DetalleNotaDeCredito" EntitySet="DetalleNotaDeCreditoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NotasDeCredito_Facturas" Association="SistemaFacturacionRepuestoJoanModel.FK_NotasDeCredito_Facturas">
+      <End Role="Factura" EntitySet="Facturas" />
+      <End Role="NotasDeCredito" EntitySet="NotasDeCreditoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NotasDeCredito_Users" Association="SistemaFacturacionRepuestoJoanModel.FK_NotasDeCredito_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="NotasDeCredito" EntitySet="NotasDeCreditoes" />
+    </AssociationSet>
+    <FunctionImport Name="proc_CargarDetalleNotaDeCredito" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarDetalleNotaDeCredito_Result)">
+      <Parameter Name="NotaDeCreditoID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarDetalleFacturaVenta" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarDetalleFacturaVenta_Result)">
+      <Parameter Name="FacturaID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarOrdenesCompraPFecha" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarOrdenesCompraPFecha_Result)">
+      <Parameter Name="FechaInicial" Mode="In" Type="DateTime" />
+      <Parameter Name="FechaFinal" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CalcularGanancias">
+      <Parameter Name="GananciaFContDia" Mode="InOut" Type="Decimal" />
+      <Parameter Name="GananciaFContSemana" Mode="InOut" Type="Decimal" />
+      <Parameter Name="GananciaFContMes" Mode="InOut" Type="Decimal" />
+      <Parameter Name="GananciaFCredDia" Mode="InOut" Type="Decimal" />
+      <Parameter Name="GananciaFCredSemana" Mode="InOut" Type="Decimal" />
+      <Parameter Name="GananciaFCredMes" Mode="InOut" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="proc_Cargar10ProductosVendidosPFecha" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_Cargar10ProductosVendidosPFecha_Result)">
+      <Parameter Name="FechaInicial" Mode="In" Type="DateTime" />
+      <Parameter Name="FechaFinal" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarCobrosVentaCreditoPFecha" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarCobrosVentaCreditoPFecha_Result)">
+      <Parameter Name="FechaInicial" Mode="In" Type="DateTime" />
+      <Parameter Name="FechaFinal" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarFacturasPFecha" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarFacturasPFecha_Result)">
+      <Parameter Name="FechaInicial" Mode="In" Type="DateTime" />
+      <Parameter Name="FechaFinal" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarLineasCreditoVentasCompletadasPFecha" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarLineasCreditoVentasCompletadasPFecha_Result)">
+      <Parameter Name="FechaInicial" Mode="In" Type="DateTime" />
+      <Parameter Name="FechaFinal" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarLineasCreditoVentasPendientesPFecha" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarLineasCreditoVentasPendientesPFecha_Result)">
+      <Parameter Name="FechaInicial" Mode="In" Type="DateTime" />
+      <Parameter Name="FechaFinal" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarLineasCreditoVentasVencidas30PFecha" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarLineasCreditoVentasVencidas30PFecha_Result)">
+      <Parameter Name="FechaInicial" Mode="In" Type="DateTime" />
+      <Parameter Name="FechaFinal" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarNotasDeCreditoPFecha" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarNotasDeCreditoPFecha_Result)">
+      <Parameter Name="FechaInicial" Mode="In" Type="DateTime" />
+      <Parameter Name="FechaFinal" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="proc_ActualizarUsers">
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="UserPassword" Mode="In" Type="String" />
+      <Parameter Name="UserLevel" Mode="In" Type="Int32" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_BorrarUser">
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="proc_CargarTodosUsers" ReturnType="Collection(SistemaFacturacionRepuestoJoanModel.proc_CargarTodosUsers_Result)" />
+    <FunctionImport Name="proc_InsertarUser">
+      <Parameter Name="UserID" Mode="InOut" Type="Int32" />
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="UserPassword" Mode="In" Type="String" />
+      <Parameter Name="UserLevel" Mode="In" Type="Int32" />
+      <Parameter Name="resultado" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="proc_Menu_2_Result">
+    <Property Type="String" Name="Menu" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="MenuID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_SubMenu_1_Result">
+    <Property Type="String" Name="SubMenu" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="MenuID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_SubMenu_2_Result">
+    <Property Type="String" Name="SubMenu" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="MenuID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_Menu_1_Result">
+    <Property Type="Int32" Name="MenuID" Nullable="false" />
+    <Property Type="String" Name="Menu" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="TiposPago">
+    <Key>
+      <PropertyRef Name="TipoPagoID" />
+    </Key>
+    <Property Name="TipoPagoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TipoDePago" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Facturas" Relationship="SistemaFacturacionRepuestoJoanModel.FK_Facturas_TiposPago" FromRole="TiposPago" ToRole="Factura" />
+    <NavigationProperty Name="FacturasCompras" Relationship="SistemaFacturacionRepuestoJoanModel.FK_FacturasCompra_TiposPago" FromRole="TiposPago" ToRole="FacturasCompra" />
+  </EntityType>
+  <ComplexType Name="proc_ValidarUsuario_Result">
+    <Property Type="Int32" Name="UserID" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="UserPassword" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="UserLevel" Nullable="false" />
+  </ComplexType>
+  <Association Name="FK_Productos_CategoriasProd">
+    <End Type="SistemaFacturacionRepuestoJoanModel.CategoriasProd" Role="CategoriasProd" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.Producto" Role="Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategoriasProd">
+        <PropertyRef Name="CategoriaProdID" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="CategoriaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleFacturas_Facturas">
+    <End Type="SistemaFacturacionRepuestoJoanModel.Factura" Role="Factura" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.DetalleFactura" Role="DetalleFactura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factura">
+        <PropertyRef Name="FacturaID" />
+      </Principal>
+      <Dependent Role="DetalleFactura">
+        <PropertyRef Name="FacturaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleFacturas_Productos">
+    <End Type="SistemaFacturacionRepuestoJoanModel.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.DetalleFactura" Role="DetalleFactura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="ProductoID" />
+      </Principal>
+      <Dependent Role="DetalleFactura">
+        <PropertyRef Name="ProductoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Facturas_TiposPago">
+    <End Type="SistemaFacturacionRepuestoJoanModel.TiposPago" Role="TiposPago" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.Factura" Role="Factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TiposPago">
+        <PropertyRef Name="TipoPagoID" />
+      </Principal>
+      <Dependent Role="Factura">
+        <PropertyRef Name="TipoPagoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Facturas_Users">
+    <End Type="SistemaFacturacionRepuestoJoanModel.User" Role="User" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.Factura" Role="Factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Factura">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="proc_CargarTodasCategoriasProd_Result">
+    <Property Type="Int32" Name="CategoriaProdID" Nullable="false" />
+    <Property Type="String" Name="Categoria" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodasFacturas_Result">
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="UserID" Nullable="false" />
+    <Property Type="String" Name="NCF" Nullable="true" MaxLength="11" />
+    <Property Type="String" Name="TipoDePago" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TipoFactura" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="Valor" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodosClientes_Result">
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="CedulaORnc" Nullable="false" MaxLength="11" />
+    <Property Type="String" Name="Direccion" Nullable="false" MaxLength="200" />
+    <Property Type="Double" Name="Descuento" Nullable="true" />
+    <Property Type="String" Name="Contacto_1" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Contacto_2" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodosProductos_Result">
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Referencia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Marca" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="Existencia" Nullable="false" />
+    <Property Type="Decimal" Name="PrecioCompra" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="PrecioVenta" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="CodigoBarra" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="Descuento" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="ITBIS" Nullable="false" />
+    <Property Type="String" Name="Categoria" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Calidad" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="CantMin" Nullable="false" />
+    <Property Type="Double" Name="CantMax" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodosProveedores_Result">
+    <Property Type="Int32" Name="ProveedorID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="CedulaORnc" Nullable="false" MaxLength="11" />
+    <Property Type="String" Name="Direccion" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="DatoAdicional" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Contacto_1" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Contacto_2" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodosTiposFactura_Result">
+    <Property Type="Int32" Name="TipoFacturaID" Nullable="false" />
+    <Property Type="String" Name="TipoFactura" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodosTiposPagos_Result">
+    <Property Type="Int32" Name="TipoPagoID" Nullable="false" />
+    <Property Type="String" Name="TipoDePago" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="ClienteID" />
+    </Key>
+    <Property Name="ClienteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CedulaORnc" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Contacto_1" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Contacto_2" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Descuento" Type="Double" />
+    <NavigationProperty Name="Facturas" Relationship="SistemaFacturacionRepuestoJoanModel.FK_Facturas_Clientes" FromRole="Cliente" ToRole="Factura" />
+    <Property Name="Credito" Type="Double" />
+  </EntityType>
+  <EntityType Name="Proveedore">
+    <Key>
+      <PropertyRef Name="ProveedorID" />
+    </Key>
+    <Property Name="ProveedorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CedulaORnc" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Contacto_1" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Contacto_2" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="DatoAdicional" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Productos" Relationship="SistemaFacturacionRepuestoJoanModel.FK_Productos_Proveedores" FromRole="Proveedore" ToRole="Producto" />
+    <NavigationProperty Name="FacturasCompras" Relationship="SistemaFacturacionRepuestoJoanModel.FK_FacturasCompra_Proveedores" FromRole="Proveedore" ToRole="FacturasCompra" />
+  </EntityType>
+  <Association Name="FK_Facturas_Clientes">
+    <End Type="SistemaFacturacionRepuestoJoanModel.Cliente" Role="Cliente" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.Factura" Role="Factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="ClienteID" />
+      </Principal>
+      <Dependent Role="Factura">
+        <PropertyRef Name="ClienteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Productos_Proveedores">
+    <End Type="SistemaFacturacionRepuestoJoanModel.Proveedore" Role="Proveedore" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.Producto" Role="Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedore">
+        <PropertyRef Name="ProveedorID" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="ProveedorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="proc_BuscarClientesPorID_Result">
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="CedulaORnc" Nullable="false" MaxLength="11" />
+    <Property Type="String" Name="Direccion" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Contacto_1" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Contacto_2" Nullable="true" MaxLength="10" />
+    <Property Type="Double" Name="Descuento" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="proc_BuscarProveedoresPorID_Result">
+    <Property Type="Int32" Name="ProveedorID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="CedulaORnc" Nullable="false" MaxLength="11" />
+    <Property Type="String" Name="Direccion" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Contacto_1" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Contacto_2" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="DatoAdicional" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="proc_BuscarProductosPorID_Result">
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Referencia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="CategoriaID" Nullable="false" />
+    <Property Type="String" Name="Marca" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="Existencia" Nullable="false" />
+    <Property Type="Decimal" Name="PrecioCompra" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="PrecioVenta" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="ProveedorID" Nullable="false" />
+    <Property Type="String" Name="CodigoBarra" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Calidad" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="Descuento" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="ITBIS" Nullable="false" />
+    <Property Type="Double" Name="CantMin" Nullable="false" />
+    <Property Type="Double" Name="CantMax" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_BuscarProductosPorCodigoBarra_Result">
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Referencia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="CategoriaID" Nullable="false" />
+    <Property Type="String" Name="Marca" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="Existencia" Nullable="false" />
+    <Property Type="Decimal" Name="PrecioCompra" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="PrecioVenta" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="ProveedorID" Nullable="false" />
+    <Property Type="String" Name="CodigoBarra" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Calidad" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="Descuento" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="ITBIS" Nullable="false" />
+    <Property Type="Double" Name="CantMin" Nullable="false" />
+    <Property Type="Double" Name="CantMax" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_BuscarCantidadProductosPorCodigoBarra_Result">
+    <Property Type="Double" Name="Existencia" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodasFacturasCFinal_Result">
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="TipoPagoID" Nullable="false" />
+    <Property Type="String" Name="NCF" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="FechaVencimiento" Nullable="true" />
+    <Property Type="Int32" Name="UserID" Nullable="false" />
+    <Property Type="String" Name="RNC" Nullable="true" MaxLength="11" />
+    <Property Type="Int32" Name="TipoFacturaID" Nullable="false" />
+    <Property Type="String" Name="Entidad" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <EntityType Name="TiposFactura">
+    <Key>
+      <PropertyRef Name="TipoFacturaID" />
+    </Key>
+    <Property Name="TipoFacturaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TipoFactura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Facturas" Relationship="SistemaFacturacionRepuestoJoanModel.FK_Facturas_TiposFactura" FromRole="TiposFactura" ToRole="Factura" />
+  </EntityType>
+  <Association Name="FK_Facturas_TiposFactura">
+    <End Type="SistemaFacturacionRepuestoJoanModel.TiposFactura" Role="TiposFactura" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.Factura" Role="Factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TiposFactura">
+        <PropertyRef Name="TipoFacturaID" />
+      </Principal>
+      <Dependent Role="Factura">
+        <PropertyRef Name="TipoFacturaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="proc_CargarFacturaVentaCFinal_Result">
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="Double" Name="Descuento" Nullable="true" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="String" Name="NCF" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TipoFactura" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TipoDePago" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="Precio" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Double" Name="CantVen" Nullable="false" />
+    <Property Type="Decimal" Name="ITBIS" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Descuento1" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Double" Name="SubTotal" Nullable="true" />
+    <Property Type="Double" Name="ITBISTotal" Nullable="true" />
+    <Property Type="Double" Name="DescuentoTotal" Nullable="true" />
+    <Property Type="Int32" Name="UserID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarFacturaVentaCFiscal_Result">
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="Double" Name="Descuento" Nullable="true" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="String" Name="NCF" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TipoFactura" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TipoDePago" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="Precio" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Double" Name="CantVen" Nullable="false" />
+    <Property Type="Decimal" Name="Descuento1" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="ITBIS" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Double" Name="SubTotal" Nullable="true" />
+    <Property Type="Double" Name="ITBISTotal" Nullable="true" />
+    <Property Type="Double" Name="DescuentoTotal" Nullable="true" />
+    <Property Type="DateTime" Name="FechaVencimiento" Nullable="true" />
+    <Property Type="String" Name="RNC" Nullable="true" MaxLength="11" />
+    <Property Type="String" Name="Entidad" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="UserID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_VerTipoUltimaFactura_Result">
+    <Property Type="Int32" Name="TipoFacturaID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarCategoriasProd_Result">
+    <Property Type="Int32" Name="CategoriaProdID" Nullable="false" />
+    <Property Type="String" Name="Categoria" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarProductosComprar_Result">
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Referencia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CodigoBarra" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Categoria" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Marca" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Calidad" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="Existencia" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="Decimal" Name="PrecioCompra" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="PrecioVenta" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="ITBIS" Nullable="false" />
+    <Property Type="Decimal" Name="Descuento" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Double" Name="CantMin" Nullable="false" />
+    <Property Type="Double" Name="CantMax" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarProductosExistBaja_Result">
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Referencia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="Existencia" Nullable="false" />
+    <Property Type="Double" Name="CantMin" Nullable="false" />
+    <Property Type="Double" Name="CantMax" Nullable="false" />
+    <Property Type="Int32" Name="ProveedorID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="OrdenesCompra">
+    <Key>
+      <PropertyRef Name="OrdencompraID" />
+    </Key>
+    <Property Name="OrdencompraID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProveedorID" Type="Int32" Nullable="false" />
+    <Property Name="FechaPedido" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="FechaCompletado" Type="DateTime" Precision="0" />
+    <Property Name="Estatus" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="DetalleOrdenesCompra" Relationship="SistemaFacturacionRepuestoJoanModel.FK_PedidosCompletados_PedidosPendientes" FromRole="OrdenesCompra" ToRole="DetalleOrdenesCompra" />
+    <NavigationProperty Name="DetalleOrdenesCompras" Relationship="SistemaFacturacionRepuestoJoanModel.FK_DetalleOrdenesCompra_OrdenesCompra" FromRole="OrdenesCompra" ToRole="DetalleOrdenesCompra" />
+    <NavigationProperty Name="FacturasCompras" Relationship="SistemaFacturacionRepuestoJoanModel.FK_FacturasCompra_OrdenesCompra" FromRole="OrdenesCompra" ToRole="FacturasCompra" />
+  </EntityType>
+  <EntityType Name="DetalleOrdenesCompra">
+    <Key>
+      <PropertyRef Name="DetalleOrdenCompraID" />
+    </Key>
+    <Property Name="DetalleOrdenCompraID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrdenCompraID" Type="Int32" Nullable="false" />
+    <Property Name="ProductoID" Type="Int32" Nullable="false" />
+    <Property Name="CantidadOrdenada" Type="Double" Nullable="false" />
+    <Property Name="CantidadRecibida" Type="Double" />
+    <Property Name="Precio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="OrdenesCompras" Relationship="SistemaFacturacionRepuestoJoanModel.FK_PedidosCompletados_PedidosPendientes" FromRole="DetalleOrdenesCompra" ToRole="OrdenesCompra" />
+    <NavigationProperty Name="OrdenesCompra" Relationship="SistemaFacturacionRepuestoJoanModel.FK_DetalleOrdenesCompra_OrdenesCompra" FromRole="DetalleOrdenesCompra" ToRole="OrdenesCompra" />
+  </EntityType>
+  <Association Name="FK_PedidosCompletados_PedidosPendientes">
+    <End Type="SistemaFacturacionRepuestoJoanModel.DetalleOrdenesCompra" Role="DetalleOrdenesCompra" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.OrdenesCompra" Role="OrdenesCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DetalleOrdenesCompra">
+        <PropertyRef Name="DetalleOrdenCompraID" />
+      </Principal>
+      <Dependent Role="OrdenesCompra">
+        <PropertyRef Name="ProveedorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="proc_CargarTodasOrdenesCompra_Result">
+    <Property Type="Int32" Name="OrdencompraID" Nullable="false" />
+    <Property Type="Int32" Name="ProveedorID" Nullable="false" />
+    <Property Type="DateTime" Name="FechaPedido" Nullable="false" />
+    <Property Type="DateTime" Name="FechaCompletado" Nullable="true" />
+    <Property Type="Boolean" Name="Estatus" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_BuscarProveedoresPorNombre_Result">
+    <Property Type="Int32" Name="ProveedorID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="CedulaORnc" Nullable="false" MaxLength="11" />
+    <Property Type="String" Name="Direccion" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Contacto_1" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Contacto_2" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="DatoAdicional" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarProductosExistBajaPorProveedor1_Result">
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Referencia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Calidad" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="Existencia" Nullable="false" />
+    <Property Type="Double" Name="CantMin" Nullable="false" />
+    <Property Type="Double" Name="CantMax" Nullable="false" />
+    <Property Type="Decimal" Name="PrecioCompra" Nullable="false" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarProductosExistBajaPorProveedor_Result">
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Referencia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Calidad" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="Existencia" Nullable="false" />
+    <Property Type="Double" Name="CantMin" Nullable="false" />
+    <Property Type="Double" Name="CantMax" Nullable="false" />
+    <Property Type="Decimal" Name="PrecioCompra" Nullable="false" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="proc_BuscarProductosPorProveedor_Result">
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Referencia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Calidad" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="Existencia" Nullable="false" />
+    <Property Type="Double" Name="CantMin" Nullable="false" />
+    <Property Type="Double" Name="CantMax" Nullable="false" />
+    <Property Type="Decimal" Name="PrecioCompra" Nullable="false" Precision="18" Scale="2" />
+  </ComplexType>
+  <Association Name="FK_DetalleOrdenesCompra_OrdenesCompra">
+    <End Type="SistemaFacturacionRepuestoJoanModel.OrdenesCompra" Role="OrdenesCompra" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.DetalleOrdenesCompra" Role="DetalleOrdenesCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrdenesCompra">
+        <PropertyRef Name="OrdencompraID" />
+      </Principal>
+      <Dependent Role="DetalleOrdenesCompra">
+        <PropertyRef Name="OrdenCompraID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="proc_CargarDetalleOrdenCompra_Result">
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Referencia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Calidad" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="Existencia" Nullable="false" />
+    <Property Type="Double" Name="CantMin" Nullable="false" />
+    <Property Type="Double" Name="CantidadOrdenada" Nullable="false" />
+    <Property Type="Double" Name="CantidadRecibida" Nullable="true" />
+    <Property Type="Decimal" Name="Precio" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <EntityType Name="FacturasCompra">
+    <Key>
+      <PropertyRef Name="FacturaCompraID" />
+    </Key>
+    <Property Name="FacturaCompraID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProveedorID" Type="Int32" Nullable="false" />
+    <Property Name="OrdenCompraID" Type="Int32" Nullable="false" />
+    <Property Name="NCF" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Name="FechaVencimientoSecuencia" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="FechaFactura" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="TipoDePagoID" Type="Int32" Nullable="false" />
+    <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="ITBIS" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="OrdenesCompra" Relationship="SistemaFacturacionRepuestoJoanModel.FK_FacturasCompra_OrdenesCompra" FromRole="FacturasCompra" ToRole="OrdenesCompra" />
+    <NavigationProperty Name="Proveedore" Relationship="SistemaFacturacionRepuestoJoanModel.FK_FacturasCompra_Proveedores" FromRole="FacturasCompra" ToRole="Proveedore" />
+    <NavigationProperty Name="TiposPago" Relationship="SistemaFacturacionRepuestoJoanModel.FK_FacturasCompra_TiposPago" FromRole="FacturasCompra" ToRole="TiposPago" />
+  </EntityType>
+  <Association Name="FK_FacturasCompra_OrdenesCompra">
+    <End Type="SistemaFacturacionRepuestoJoanModel.OrdenesCompra" Role="OrdenesCompra" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.FacturasCompra" Role="FacturasCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrdenesCompra">
+        <PropertyRef Name="OrdencompraID" />
+      </Principal>
+      <Dependent Role="FacturasCompra">
+        <PropertyRef Name="OrdenCompraID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FacturasCompra_Proveedores">
+    <End Type="SistemaFacturacionRepuestoJoanModel.Proveedore" Role="Proveedore" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.FacturasCompra" Role="FacturasCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedore">
+        <PropertyRef Name="ProveedorID" />
+      </Principal>
+      <Dependent Role="FacturasCompra">
+        <PropertyRef Name="ProveedorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FacturasCompra_TiposPago">
+    <End Type="SistemaFacturacionRepuestoJoanModel.TiposPago" Role="TiposPago" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.FacturasCompra" Role="FacturasCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TiposPago">
+        <PropertyRef Name="TipoPagoID" />
+      </Principal>
+      <Dependent Role="FacturasCompra">
+        <PropertyRef Name="TipoDePagoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="proc_VerTipoPagoUltimaFactura_Result">
+    <Property Type="Int32" Name="TipoPagoID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodasLineasCreditoVentas_Result">
+    <Property Type="Int32" Name="LineaCreditoVentaID" Nullable="false" />
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Double" Name="MontoFactura" Nullable="true" />
+    <Property Type="Double" Name="MontoPendiente" Nullable="true" />
+    <Property Type="Boolean" Name="Estatus" Nullable="false" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodasLineasCreditoVentasCompletadas_Result">
+    <Property Type="Int32" Name="LineaCreditoVentaID" Nullable="false" />
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Double" Name="MontoFactura" Nullable="true" />
+    <Property Type="Double" Name="MontoPendiente" Nullable="true" />
+    <Property Type="Boolean" Name="Estatus" Nullable="false" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodasLineasCreditoVentasPendientes_Result">
+    <Property Type="Int32" Name="LineaCreditoVentaID" Nullable="false" />
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Double" Name="MontoFactura" Nullable="true" />
+    <Property Type="Double" Name="MontoPendiente" Nullable="true" />
+    <Property Type="Boolean" Name="Estatus" Nullable="false" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodasLineasCreditoVentasVencidas30_Result">
+    <Property Type="Int32" Name="LineaCreditoVentaID" Nullable="false" />
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Double" Name="MontoFactura" Nullable="true" />
+    <Property Type="Double" Name="MontoPendiente" Nullable="true" />
+    <Property Type="Boolean" Name="Estatus" Nullable="false" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodasLineasCreditoVentasVencidas60_Result">
+    <Property Type="Int32" Name="LineaCreditoVentaID" Nullable="false" />
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Double" Name="MontoFactura" Nullable="true" />
+    <Property Type="Double" Name="MontoPendiente" Nullable="true" />
+    <Property Type="Boolean" Name="Estatus" Nullable="false" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="CobrosVentasCredito">
+    <Key>
+      <PropertyRef Name="CobroVentaCreditoID" />
+    </Key>
+    <Property Name="CobroVentaCreditoID" Type="Int32" Nullable="false" />
+    <Property Name="LineaCreditoVentaID" Type="Int32" Nullable="false" />
+    <Property Name="FechaCobro" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Monto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="LineasCreditoVenta" Relationship="SistemaFacturacionRepuestoJoanModel.FK_CobrosVentasCredito_LineasCredito" FromRole="CobrosVentasCredito" ToRole="LineasCreditoVenta" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="SistemaFacturacionRepuestoJoanModel.FK_CobrosVentasCredito_Users" FromRole="CobrosVentasCredito" ToRole="User" />
+    <Property Name="Concepto" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="LineasCreditoVenta">
+    <Key>
+      <PropertyRef Name="LineaCreditoVentaID" />
+    </Key>
+    <Property Name="LineaCreditoVentaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FacturaID" Type="Int32" Nullable="false" />
+    <Property Name="Estatus" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CobrosVentasCreditoes" Relationship="SistemaFacturacionRepuestoJoanModel.FK_CobrosVentasCredito_LineasCredito" FromRole="LineasCreditoVenta" ToRole="CobrosVentasCredito" />
+    <NavigationProperty Name="Factura" Relationship="SistemaFacturacionRepuestoJoanModel.FK_LineasCredito_Facturas" FromRole="LineasCreditoVenta" ToRole="Factura" />
+  </EntityType>
+  <Association Name="FK_CobrosVentasCredito_LineasCredito">
+    <End Type="SistemaFacturacionRepuestoJoanModel.LineasCreditoVenta" Role="LineasCreditoVenta" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.CobrosVentasCredito" Role="CobrosVentasCredito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LineasCreditoVenta">
+        <PropertyRef Name="LineaCreditoVentaID" />
+      </Principal>
+      <Dependent Role="CobrosVentasCredito">
+        <PropertyRef Name="LineaCreditoVentaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LineasCredito_Facturas">
+    <End Type="SistemaFacturacionRepuestoJoanModel.Factura" Role="Factura" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.LineasCreditoVenta" Role="LineasCreditoVenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factura">
+        <PropertyRef Name="FacturaID" />
+      </Principal>
+      <Dependent Role="LineasCreditoVenta">
+        <PropertyRef Name="FacturaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CobrosVentasCredito_Users">
+    <End Type="SistemaFacturacionRepuestoJoanModel.User" Role="User" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.CobrosVentasCredito" Role="CobrosVentasCredito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="CobrosVentasCredito">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="proc_CargarCobrosVentaCredito_Result">
+    <Property Type="Int32" Name="CobroVentaCreditoID" Nullable="false" />
+    <Property Type="DateTime" Name="FechaCobro" Nullable="false" Precision="23" />
+    <Property Type="Decimal" Name="Monto" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="UserID" Nullable="false" />
+    <Property Type="String" Name="Concepto" Nullable="false" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="proc_ComprobantePagoLineaCreditoVenta_Result">
+    <Property Type="DateTime" Name="FechaCobro" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="CobroVentaCreditoID" Nullable="true" />
+    <Property Type="Int32" Name="LineaCreditoVentaID" Nullable="true" />
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="Double" Name="ValorFactura" Nullable="true" />
+    <Property Type="Double" Name="ValorPendiente" Nullable="true" />
+    <Property Type="Decimal" Name="PagoRealizado" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Double" Name="MontoRestante" Nullable="true" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="UserID" Nullable="true" />
+    <Property Type="String" Name="Concepto" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarMontoFacturaNC_Result">
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Double" Name="ValorFactura" Nullable="true" />
+    <Property Type="Double" Name="ValorPendiente" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarFacturasPendientes_Result">
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarProductosFactura_Result">
+    <Property Type="String" Name="Referencia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="Precio" Nullable="true" Precision="20" Scale="2" />
+    <Property Type="Double" Name="CantVen" Nullable="false" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="DetalleNotaDeCredito">
+    <Key>
+      <PropertyRef Name="DetalleNotaDeCreditoID" />
+    </Key>
+    <Property Name="DetalleNotaDeCreditoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NotaDeCreditoID" Type="Int32" Nullable="false" />
+    <Property Name="ProductoID" Type="Int32" Nullable="false" />
+    <Property Name="CantDevuelta" Type="Double" Nullable="false" />
+    <Property Name="CantInventariada" Type="Double" Nullable="false" />
+    <Property Name="Precio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Comentario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="NotasDeCredito" Relationship="SistemaFacturacionRepuestoJoanModel.FK_DetalleNotaDeCredito_NotasDeCredito" FromRole="DetalleNotaDeCredito" ToRole="NotasDeCredito" />
+    <NavigationProperty Name="Producto" Relationship="SistemaFacturacionRepuestoJoanModel.FK_DetalleNotaDeCredito_Productos" FromRole="DetalleNotaDeCredito" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="NotasDeCredito">
+    <Key>
+      <PropertyRef Name="NotaDeCreditoID" />
+    </Key>
+    <Property Name="NotaDeCreditoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FacturaID" Type="Int32" Nullable="false" />
+    <Property Name="FacturaAplicarID" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="NCF" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="ValorAplicado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="DetalleNotaDeCreditoes" Relationship="SistemaFacturacionRepuestoJoanModel.FK_DetalleNotaDeCredito_NotasDeCredito" FromRole="NotasDeCredito" ToRole="DetalleNotaDeCredito" />
+    <NavigationProperty Name="Factura" Relationship="SistemaFacturacionRepuestoJoanModel.FK_NotasDeCredito_Facturas" FromRole="NotasDeCredito" ToRole="Factura" />
+    <NavigationProperty Name="User" Relationship="SistemaFacturacionRepuestoJoanModel.FK_NotasDeCredito_Users" FromRole="NotasDeCredito" ToRole="User" />
+  </EntityType>
+  <ComplexType Name="proc_CargarNotasDeCreditoCliente_Result">
+    <Property Type="Int32" Name="NotaDeCreditoID" Nullable="false" />
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="Int32" Name="FacturaAplicarID" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="UserID" Nullable="false" />
+    <Property Type="String" Name="NCF" Nullable="false" MaxLength="25" />
+    <Property Type="Double" Name="Valor" Nullable="true" />
+    <Property Type="Decimal" Name="ValorAplicado" Nullable="false" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodasNotasDeCredito_Result">
+    <Property Type="Int32" Name="NotaDeCreditoID" Nullable="false" />
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="Int32" Name="FacturaAplicarID" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="UserID" Nullable="false" />
+    <Property Type="String" Name="NCF" Nullable="false" MaxLength="25" />
+    <Property Type="Double" Name="Valor" Nullable="true" />
+    <Property Type="Decimal" Name="ValorAplicado" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+  </ComplexType>
+  <Association Name="FK_DetalleNotaDeCredito_NotasDeCredito">
+    <End Type="SistemaFacturacionRepuestoJoanModel.NotasDeCredito" Role="NotasDeCredito" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.DetalleNotaDeCredito" Role="DetalleNotaDeCredito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NotasDeCredito">
+        <PropertyRef Name="NotaDeCreditoID" />
+      </Principal>
+      <Dependent Role="DetalleNotaDeCredito">
+        <PropertyRef Name="NotaDeCreditoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleNotaDeCredito_Productos">
+    <End Type="SistemaFacturacionRepuestoJoanModel.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.DetalleNotaDeCredito" Role="DetalleNotaDeCredito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="ProductoID" />
+      </Principal>
+      <Dependent Role="DetalleNotaDeCredito">
+        <PropertyRef Name="ProductoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NotasDeCredito_Facturas">
+    <End Type="SistemaFacturacionRepuestoJoanModel.Factura" Role="Factura" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.NotasDeCredito" Role="NotasDeCredito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factura">
+        <PropertyRef Name="FacturaID" />
+      </Principal>
+      <Dependent Role="NotasDeCredito">
+        <PropertyRef Name="FacturaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NotasDeCredito_Users">
+    <End Type="SistemaFacturacionRepuestoJoanModel.User" Role="User" Multiplicity="1" />
+    <End Type="SistemaFacturacionRepuestoJoanModel.NotasDeCredito" Role="NotasDeCredito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="NotasDeCredito">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="proc_CargarDetalleNotaDeCredito_Result">
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Referencia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="Precio" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Double" Name="CantDevuelta" Nullable="false" />
+    <Property Type="Double" Name="CantInventariada" Nullable="false" />
+    <Property Type="String" Name="Comentario" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarDetalleFacturaVenta_Result">
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Referencia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="CantVen" Nullable="false" />
+    <Property Type="Decimal" Name="Precio" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="ITBIS" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Descuento" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Importe" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarOrdenesCompraPFecha_Result">
+    <Property Type="Int32" Name="OrdencompraID" Nullable="false" />
+    <Property Type="Int32" Name="ProveedorID" Nullable="false" />
+    <Property Type="DateTime" Name="FechaPedido" Nullable="false" />
+    <Property Type="DateTime" Name="FechaCompletado" Nullable="true" />
+    <Property Type="Boolean" Name="Estatus" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_Cargar10ProductosVendidosPFecha_Result">
+    <Property Type="Int32" Name="ProductoID" Nullable="false" />
+    <Property Type="String" Name="Referencia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="ProveedorID" Nullable="false" />
+    <Property Type="Double" Name="Existencia" Nullable="false" />
+    <Property Type="Double" Name="CantidadVendida" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarCobrosVentaCreditoPFecha_Result">
+    <Property Type="Int32" Name="CobroVentaCreditoID" Nullable="false" />
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="DateTime" Name="FechaCobro" Nullable="false" Precision="23" />
+    <Property Type="Decimal" Name="Monto" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="Concepto" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="UserID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarFacturasPFecha_Result">
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="Int32" Name="UserID" Nullable="false" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="String" Name="TipoDePago" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="TipoFactura" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="NCF" Nullable="true" MaxLength="11" />
+    <Property Type="Decimal" Name="Descuento" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="ITBIS" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Valor" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarLineasCreditoVentasCompletadasPFecha_Result">
+    <Property Type="Int32" Name="LineaCreditoVentaID" Nullable="false" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Double" Name="MontoFactura" Nullable="true" />
+    <Property Type="Double" Name="MontoPendiente" Nullable="true" />
+    <Property Type="Boolean" Name="Estatus" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarLineasCreditoVentasPendientesPFecha_Result">
+    <Property Type="Int32" Name="LineaCreditoVentaID" Nullable="false" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Double" Name="MontoFactura" Nullable="true" />
+    <Property Type="Double" Name="MontoPendiente" Nullable="true" />
+    <Property Type="Boolean" Name="Estatus" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarLineasCreditoVentasVencidas30PFecha_Result">
+    <Property Type="Int32" Name="LineaCreditoVentaID" Nullable="false" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="Double" Name="MontoFactura" Nullable="true" />
+    <Property Type="Double" Name="MontoPendiente" Nullable="true" />
+    <Property Type="Boolean" Name="Estatus" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarNotasDeCreditoPFecha_Result">
+    <Property Type="Int32" Name="NotaDeCreditoID" Nullable="false" />
+    <Property Type="Int32" Name="UserID" Nullable="false" />
+    <Property Type="Int32" Name="ClienteID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="FacturaID" Nullable="false" />
+    <Property Type="Int32" Name="FacturaAplicarID" Nullable="false" />
+    <Property Type="DateTime" Name="Fecha" Nullable="false" Precision="23" />
+    <Property Type="String" Name="NCF" Nullable="false" MaxLength="25" />
+    <Property Type="Double" Name="Valor" Nullable="true" />
+    <Property Type="Decimal" Name="ValorAplicado" Nullable="false" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="proc_CargarTodosUsers_Result">
+    <Property Type="Int32" Name="UserID" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="UserPassword" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="UserLevel" Nullable="false" />
+  </ComplexType>
+</Schema>

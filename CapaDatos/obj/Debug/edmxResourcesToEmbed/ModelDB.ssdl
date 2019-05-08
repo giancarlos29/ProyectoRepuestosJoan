@@ -1,0 +1,899 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SistemaFacturacionRepuestoJoanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CategoriasProd">
+    <Key>
+      <PropertyRef Name="CategoriaProdID" />
+    </Key>
+    <Property Name="CategoriaProdID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Categoria" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="ClienteID" />
+    </Key>
+    <Property Name="ClienteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CedulaORnc" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Contacto_1" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Contacto_2" Type="varchar" MaxLength="10" />
+    <Property Name="Descuento" Type="float" />
+    <Property Name="Credito" Type="float" />
+  </EntityType>
+  <EntityType Name="CobrosVentasCredito">
+    <Key>
+      <PropertyRef Name="CobroVentaCreditoID" />
+    </Key>
+    <Property Name="CobroVentaCreditoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LineaCreditoVentaID" Type="int" Nullable="false" />
+    <Property Name="FechaCobro" Type="datetime" Nullable="false" />
+    <Property Name="Monto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Concepto" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetalleFacturas">
+    <Key>
+      <PropertyRef Name="DetalleFacturaID" />
+    </Key>
+    <Property Name="DetalleFacturaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FacturaID" Type="int" Nullable="false" />
+    <Property Name="ProductoID" Type="int" Nullable="false" />
+    <Property Name="CantVen" Type="float" Nullable="false" />
+    <Property Name="Precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="ITBIS" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Descuento" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetalleNotaDeCredito">
+    <Key>
+      <PropertyRef Name="DetalleNotaDeCreditoID" />
+    </Key>
+    <Property Name="DetalleNotaDeCreditoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NotaDeCreditoID" Type="int" Nullable="false" />
+    <Property Name="ProductoID" Type="int" Nullable="false" />
+    <Property Name="CantDevuelta" Type="float" Nullable="false" />
+    <Property Name="CantInventariada" Type="float" Nullable="false" />
+    <Property Name="Precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Comentario" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetalleOrdenesCompra">
+    <Key>
+      <PropertyRef Name="DetalleOrdenCompraID" />
+    </Key>
+    <Property Name="DetalleOrdenCompraID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrdenCompraID" Type="int" Nullable="false" />
+    <Property Name="ProductoID" Type="int" Nullable="false" />
+    <Property Name="CantidadOrdenada" Type="float" Nullable="false" />
+    <Property Name="CantidadRecibida" Type="float" />
+    <Property Name="Precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Facturas">
+    <Key>
+      <PropertyRef Name="FacturaID" />
+    </Key>
+    <Property Name="FacturaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClienteID" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="TipoPagoID" Type="int" Nullable="false" />
+    <Property Name="TipoFacturaID" Type="int" Nullable="false" />
+    <Property Name="NCF" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FechaVencimiento" Type="date" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="RNC" Type="varchar" MaxLength="11" />
+    <Property Name="Entidad" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="FacturasCompra">
+    <Key>
+      <PropertyRef Name="FacturaCompraID" />
+    </Key>
+    <Property Name="FacturaCompraID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProveedorID" Type="int" Nullable="false" />
+    <Property Name="OrdenCompraID" Type="int" Nullable="false" />
+    <Property Name="NCF" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="FechaVencimientoSecuencia" Type="date" Nullable="false" />
+    <Property Name="FechaFactura" Type="date" Nullable="false" />
+    <Property Name="TipoDePagoID" Type="int" Nullable="false" />
+    <Property Name="SubTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="ITBIS" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LineasCreditoVentas">
+    <Key>
+      <PropertyRef Name="LineaCreditoVentaID" />
+    </Key>
+    <Property Name="LineaCreditoVentaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FacturaID" Type="int" Nullable="false" />
+    <Property Name="Estatus" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Menu" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Active" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NotasDeCredito">
+    <Key>
+      <PropertyRef Name="NotaDeCreditoID" />
+    </Key>
+    <Property Name="NotaDeCreditoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FacturaID" Type="int" Nullable="false" />
+    <Property Name="FacturaAplicarID" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="NCF" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="FechaVencimiento" Type="date" Nullable="false" />
+    <Property Name="ValorAplicado" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrdenesCompra">
+    <Key>
+      <PropertyRef Name="OrdencompraID" />
+    </Key>
+    <Property Name="OrdencompraID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProveedorID" Type="int" Nullable="false" />
+    <Property Name="FechaPedido" Type="date" Nullable="false" />
+    <Property Name="FechaCompletado" Type="date" />
+    <Property Name="Estatus" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="ProductoID" />
+    </Key>
+    <Property Name="ProductoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Referencia" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CodigoBarra" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CategoriaID" Type="int" Nullable="false" />
+    <Property Name="ProveedorID" Type="int" Nullable="false" />
+    <Property Name="Existencia" Type="float" Nullable="false" />
+    <Property Name="PrecioCompra" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="PrecioVenta" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Descuento" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="ITBIS" Type="bit" Nullable="false" />
+    <Property Name="Marca" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Calidad" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CantMin" Type="float" Nullable="false" />
+    <Property Name="CantMax" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proveedores">
+    <Key>
+      <PropertyRef Name="ProveedorID" />
+    </Key>
+    <Property Name="ProveedorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CedulaORnc" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Contacto_1" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Contacto_2" Type="varchar" MaxLength="10" />
+    <Property Name="DatoAdicional" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SubMenu">
+    <Key>
+      <PropertyRef Name="SubMenuID" />
+    </Key>
+    <Property Name="SubMenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubMenu" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="MenuID" Type="int" Nullable="false" />
+    <Property Name="Active" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TiposFactura">
+    <Key>
+      <PropertyRef Name="TipoFacturaID" />
+    </Key>
+    <Property Name="TipoFacturaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TipoFactura" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TiposPago">
+    <Key>
+      <PropertyRef Name="TipoPagoID" />
+    </Key>
+    <Property Name="TipoPagoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TipoDePago" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserLevel" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CobrosVentasCredito_LineasCredito">
+    <End Role="LineasCreditoVentas" Type="Self.LineasCreditoVentas" Multiplicity="1" />
+    <End Role="CobrosVentasCredito" Type="Self.CobrosVentasCredito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LineasCreditoVentas">
+        <PropertyRef Name="LineaCreditoVentaID" />
+      </Principal>
+      <Dependent Role="CobrosVentasCredito">
+        <PropertyRef Name="LineaCreditoVentaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CobrosVentasCredito_LineasCreditoVentas">
+    <End Role="LineasCreditoVentas" Type="Self.LineasCreditoVentas" Multiplicity="1" />
+    <End Role="CobrosVentasCredito" Type="Self.CobrosVentasCredito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LineasCreditoVentas">
+        <PropertyRef Name="LineaCreditoVentaID" />
+      </Principal>
+      <Dependent Role="CobrosVentasCredito">
+        <PropertyRef Name="LineaCreditoVentaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CobrosVentasCredito_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="CobrosVentasCredito" Type="Self.CobrosVentasCredito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="CobrosVentasCredito">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleFacturas_Facturas">
+    <End Role="Facturas" Type="Self.Facturas" Multiplicity="1" />
+    <End Role="DetalleFacturas" Type="Self.DetalleFacturas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facturas">
+        <PropertyRef Name="FacturaID" />
+      </Principal>
+      <Dependent Role="DetalleFacturas">
+        <PropertyRef Name="FacturaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleFacturas_Productos">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+    <End Role="DetalleFacturas" Type="Self.DetalleFacturas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="ProductoID" />
+      </Principal>
+      <Dependent Role="DetalleFacturas">
+        <PropertyRef Name="ProductoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleNotaDeCredito_NotasDeCredito">
+    <End Role="NotasDeCredito" Type="Self.NotasDeCredito" Multiplicity="1" />
+    <End Role="DetalleNotaDeCredito" Type="Self.DetalleNotaDeCredito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NotasDeCredito">
+        <PropertyRef Name="NotaDeCreditoID" />
+      </Principal>
+      <Dependent Role="DetalleNotaDeCredito">
+        <PropertyRef Name="NotaDeCreditoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleNotaDeCredito_Productos">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+    <End Role="DetalleNotaDeCredito" Type="Self.DetalleNotaDeCredito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="ProductoID" />
+      </Principal>
+      <Dependent Role="DetalleNotaDeCredito">
+        <PropertyRef Name="ProductoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleOrdenesCompra_OrdenesCompra">
+    <End Role="OrdenesCompra" Type="Self.OrdenesCompra" Multiplicity="1" />
+    <End Role="DetalleOrdenesCompra" Type="Self.DetalleOrdenesCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrdenesCompra">
+        <PropertyRef Name="OrdencompraID" />
+      </Principal>
+      <Dependent Role="DetalleOrdenesCompra">
+        <PropertyRef Name="OrdenCompraID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FacturasCompra_OrdenesCompra">
+    <End Role="OrdenesCompra" Type="Self.OrdenesCompra" Multiplicity="1" />
+    <End Role="FacturasCompra" Type="Self.FacturasCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrdenesCompra">
+        <PropertyRef Name="OrdencompraID" />
+      </Principal>
+      <Dependent Role="FacturasCompra">
+        <PropertyRef Name="OrdenCompraID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FacturasCompra_Proveedores">
+    <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="1" />
+    <End Role="FacturasCompra" Type="Self.FacturasCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedores">
+        <PropertyRef Name="ProveedorID" />
+      </Principal>
+      <Dependent Role="FacturasCompra">
+        <PropertyRef Name="ProveedorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FacturasCompra_TiposPago">
+    <End Role="TiposPago" Type="Self.TiposPago" Multiplicity="1" />
+    <End Role="FacturasCompra" Type="Self.FacturasCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TiposPago">
+        <PropertyRef Name="TipoPagoID" />
+      </Principal>
+      <Dependent Role="FacturasCompra">
+        <PropertyRef Name="TipoDePagoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LineasCredito_Facturas">
+    <End Role="Facturas" Type="Self.Facturas" Multiplicity="1" />
+    <End Role="LineasCreditoVentas" Type="Self.LineasCreditoVentas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facturas">
+        <PropertyRef Name="FacturaID" />
+      </Principal>
+      <Dependent Role="LineasCreditoVentas">
+        <PropertyRef Name="FacturaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LineasCreditoVentas_Facturas">
+    <End Role="Facturas" Type="Self.Facturas" Multiplicity="1" />
+    <End Role="LineasCreditoVentas" Type="Self.LineasCreditoVentas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facturas">
+        <PropertyRef Name="FacturaID" />
+      </Principal>
+      <Dependent Role="LineasCreditoVentas">
+        <PropertyRef Name="FacturaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NotasDeCredito_Facturas">
+    <End Role="Facturas" Type="Self.Facturas" Multiplicity="1" />
+    <End Role="NotasDeCredito" Type="Self.NotasDeCredito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facturas">
+        <PropertyRef Name="FacturaID" />
+      </Principal>
+      <Dependent Role="NotasDeCredito">
+        <PropertyRef Name="FacturaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NotasDeCredito_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="NotasDeCredito" Type="Self.NotasDeCredito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="NotasDeCredito">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Productos_CategoriasProd">
+    <End Role="CategoriasProd" Type="Self.CategoriasProd" Multiplicity="1" />
+    <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategoriasProd">
+        <PropertyRef Name="CategoriaProdID" />
+      </Principal>
+      <Dependent Role="Productos">
+        <PropertyRef Name="CategoriaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Productos_Proveedores">
+    <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="1" />
+    <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedores">
+        <PropertyRef Name="ProveedorID" />
+      </Principal>
+      <Dependent Role="Productos">
+        <PropertyRef Name="ProveedorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubMenu_Menu">
+    <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+    <End Role="SubMenu" Type="Self.SubMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="SubMenu">
+        <PropertyRef Name="MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="proc_ActualizarCantidadProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CodigoBarra" Type="varchar" Mode="In" />
+    <Parameter Name="Existencia" Type="float" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_ActualizarCategoriaProd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CategoriaProdID" Type="int" Mode="In" />
+    <Parameter Name="Categoria" Type="varchar" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_ActualizarCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ClienteID" Type="int" Mode="In" />
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="CedulaORnc" Type="varchar" Mode="In" />
+    <Parameter Name="Direccion" Type="varchar" Mode="In" />
+    <Parameter Name="Contacto_1" Type="varchar" Mode="In" />
+    <Parameter Name="Contacto_2" Type="varchar" Mode="In" />
+    <Parameter Name="Descuento" Type="float" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_ActualizarDetalleOrdenCompra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OrdenCompraID" Type="int" Mode="In" />
+    <Parameter Name="ProductoID" Type="int" Mode="In" />
+    <Parameter Name="CantidadOrdenada" Type="float" Mode="In" />
+    <Parameter Name="CantidadRecibida" Type="float" Mode="In" />
+    <Parameter Name="Precio" Type="decimal" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_ActualizarLineaCreditoVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LineaCreditoVentaID" Type="int" Mode="In" />
+    <Parameter Name="Estatus" Type="bit" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_ActualizarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductoID" Type="int" Mode="In" />
+    <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Referencia" Type="varchar" Mode="In" />
+    <Parameter Name="CategoriaID" Type="int" Mode="In" />
+    <Parameter Name="Marca" Type="varchar" Mode="In" />
+    <Parameter Name="Existencia" Type="float" Mode="In" />
+    <Parameter Name="PrecioCompra" Type="decimal" Mode="In" />
+    <Parameter Name="PrecioVenta" Type="decimal" Mode="In" />
+    <Parameter Name="ProveedorID" Type="int" Mode="In" />
+    <Parameter Name="CodigoBarra" Type="varchar" Mode="In" />
+    <Parameter Name="Calidad" Type="varchar" Mode="In" />
+    <Parameter Name="ITBIS" Type="bit" Mode="In" />
+    <Parameter Name="Descuento" Type="decimal" Mode="In" />
+    <Parameter Name="CantMin" Type="float" Mode="In" />
+    <Parameter Name="CantMax" Type="float" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_ActualizarProveedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProveedorID" Type="int" Mode="In" />
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="CedulaORnc" Type="varchar" Mode="In" />
+    <Parameter Name="Direccion" Type="varchar" Mode="In" />
+    <Parameter Name="Contacto_1" Type="varchar" Mode="In" />
+    <Parameter Name="Contacto_2" Type="varchar" Mode="In" />
+    <Parameter Name="DatoAdicional" Type="varchar" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_ActualizarTiposFacturas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TipoFacturaID" Type="int" Mode="In" />
+    <Parameter Name="TipoDeFactura" Type="varchar" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_ActualizarTiposPagos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TipoPagoID" Type="int" Mode="In" />
+    <Parameter Name="TipoDePago" Type="varchar" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_ActualizarUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="UserPassword" Type="varchar" Mode="In" />
+    <Parameter Name="UserLevel" Type="int" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_BorrarCategoriaProd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CategoriaProdID" Type="int" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_BorrarCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ClienteID" Type="int" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_BorrarDetalleOrdenCompra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OrdenCompraID" Type="int" Mode="In" />
+    <Parameter Name="ProductoID" Type="int" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_BorrarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductoID" Type="int" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_BorrarProveedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProveedorID" Type="int" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_BorrarTiposFacturas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TipoFacturaID" Type="int" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_BorrarTiposPagos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TipoPagoID" Type="int" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_BorrarUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_BuscarCantidadProductosPorCodigoBarra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CodigoBarra" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="proc_BuscarLineaDeCreditoVentaIDFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FacturaID" Type="int" Mode="In" />
+    <Parameter Name="LineaDeCreditoID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="proc_BuscarProductosPorCodigoBarra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CodigoBarra" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="proc_BuscarProductosPorID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductoID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_BuscarProductosPorProveedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProveedorID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_CalcularGanancias" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="GananciaFContDia" Type="decimal" Mode="InOut" />
+    <Parameter Name="GananciaFContSemana" Type="decimal" Mode="InOut" />
+    <Parameter Name="GananciaFContMes" Type="decimal" Mode="InOut" />
+    <Parameter Name="GananciaFCredDia" Type="decimal" Mode="InOut" />
+    <Parameter Name="GananciaFCredSemana" Type="decimal" Mode="InOut" />
+    <Parameter Name="GananciaFCredMes" Type="decimal" Mode="InOut" />
+  </Function>
+  <Function Name="proc_Cargar10ProductosVendidosPFecha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FechaInicial" Type="date" Mode="In" />
+    <Parameter Name="FechaFinal" Type="date" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarCategoriasProd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarCobrosVentaCredito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LineaVentaCreditoID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarCobrosVentaCreditoPFecha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FechaInicial" Type="date" Mode="In" />
+    <Parameter Name="FechaFinal" Type="date" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarDetalleFacturaVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FacturaID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarDetalleNotaDeCredito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NotaDeCreditoID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarDetalleOrdenCompra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OrdenCompraID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarFacturasPendientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ClienteID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarFacturasPFecha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FechaInicial" Type="date" Mode="In" />
+    <Parameter Name="FechaFinal" Type="date" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarFacturaVentaCFinal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarFacturaVentaCFiscal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarLineasCreditoVentasCompletadasPFecha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FechaInicial" Type="date" Mode="In" />
+    <Parameter Name="FechaFinal" Type="date" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarLineasCreditoVentasPendientesPFecha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FechaInicial" Type="date" Mode="In" />
+    <Parameter Name="FechaFinal" Type="date" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarLineasCreditoVentasVencidas30PFecha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FechaInicial" Type="date" Mode="In" />
+    <Parameter Name="FechaFinal" Type="date" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarMontoFacturaNC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FacturaID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarNotasDeCreditoCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ClienteID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarNotasDeCreditoPFecha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FechaInicial" Type="date" Mode="In" />
+    <Parameter Name="FechaFinal" Type="date" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarOrdenesCompraPFecha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FechaInicial" Type="date" Mode="In" />
+    <Parameter Name="FechaFinal" Type="date" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarProductosExistBaja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarProductosExistBajaPorProveedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProveedorID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarProductosFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FacturaID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_CargarTodasCategoriasProd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodasFacturas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodasFacturasCFinal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodasLineasCreditoVentas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodasLineasCreditoVentasCompletadas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodasLineasCreditoVentasPendientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodasLineasCreditoVentasVencidas30" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodasLineasCreditoVentasVencidas60" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodasNotasDeCredito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodasOrdenesCompra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodosClientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodosProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodosProveedores" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodosTiposFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodosTiposPagos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CargarTodosUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_CerrarOrdenCompra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OrdenCompraID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_ComprobantePagoLineaCreditoVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_ComprobarPagoLineaCreditoVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LineaCreditoVentaID" Type="int" Mode="In" />
+    <Parameter Name="PagoLineaCreditoVenta" Type="decimal" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_ConfirmarFacturaYCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FacturaID" Type="int" Mode="In" />
+    <Parameter Name="ClienteID" Type="int" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarCategoriaProd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CategoriaProdID" Type="int" Mode="InOut" />
+    <Parameter Name="Categoria" Type="varchar" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ClienteID" Type="int" Mode="InOut" />
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="CedulaORnc" Type="varchar" Mode="In" />
+    <Parameter Name="Direccion" Type="varchar" Mode="In" />
+    <Parameter Name="Contacto_1" Type="varchar" Mode="In" />
+    <Parameter Name="Contacto_2" Type="varchar" Mode="In" />
+    <Parameter Name="Descuento" Type="float" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarCobroVentaCredito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CobroVentaCreditoID" Type="int" Mode="InOut" />
+    <Parameter Name="LineaCreditoVentaID" Type="int" Mode="In" />
+    <Parameter Name="FechaCobro" Type="datetime" Mode="In" />
+    <Parameter Name="Monto" Type="decimal" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="Concepto" Type="varchar" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarDetalleFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DetalleFacturaID" Type="int" Mode="InOut" />
+    <Parameter Name="FacturaID" Type="int" Mode="In" />
+    <Parameter Name="ProductoID" Type="int" Mode="In" />
+    <Parameter Name="CantVen" Type="float" Mode="In" />
+    <Parameter Name="Precio" Type="decimal" Mode="In" />
+    <Parameter Name="ITBIS" Type="decimal" Mode="In" />
+    <Parameter Name="Descuento" Type="decimal" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarDetalleNotaDeCredito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DetalleNotaDeCreditoID" Type="int" Mode="InOut" />
+    <Parameter Name="NotaDeCreditoID" Type="int" Mode="In" />
+    <Parameter Name="ProductoID" Type="int" Mode="In" />
+    <Parameter Name="CantDevuelta" Type="float" Mode="In" />
+    <Parameter Name="CantInventariada" Type="float" Mode="In" />
+    <Parameter Name="Precio" Type="decimal" Mode="In" />
+    <Parameter Name="Comentario" Type="varchar" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarDetalleOrdenCompra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DetalleOrdenCompraID" Type="int" Mode="InOut" />
+    <Parameter Name="OrdenCompraID" Type="int" Mode="In" />
+    <Parameter Name="ProductoID" Type="int" Mode="In" />
+    <Parameter Name="CantOrdenada" Type="float" Mode="In" />
+    <Parameter Name="Precio" Type="decimal" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FacturaID" Type="int" Mode="InOut" />
+    <Parameter Name="ClienteID" Type="int" Mode="In" />
+    <Parameter Name="Fecha" Type="datetime" Mode="In" />
+    <Parameter Name="TipoPagoID" Type="int" Mode="In" />
+    <Parameter Name="TipoFacturaID" Type="int" Mode="In" />
+    <Parameter Name="NCF" Type="varchar" Mode="In" />
+    <Parameter Name="FechaVencimiento" Type="date" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="RNC" Type="varchar" Mode="In" />
+    <Parameter Name="Entidad" Type="varchar" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarFacturaCompra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FacturaCompraID" Type="int" Mode="InOut" />
+    <Parameter Name="ProveedorID" Type="int" Mode="In" />
+    <Parameter Name="OrdenCompraID" Type="int" Mode="In" />
+    <Parameter Name="NCF" Type="varchar" Mode="In" />
+    <Parameter Name="FechaVencimientoSecuencia" Type="date" Mode="In" />
+    <Parameter Name="FechaFactura" Type="date" Mode="In" />
+    <Parameter Name="TipoPagoID" Type="int" Mode="In" />
+    <Parameter Name="SubTotal" Type="decimal" Mode="In" />
+    <Parameter Name="ITBIS" Type="decimal" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarLineaCreditoVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LineaCreditoVentaID" Type="int" Mode="InOut" />
+    <Parameter Name="FacturaID" Type="int" Mode="In" />
+    <Parameter Name="Estatus" Type="bit" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarNotaDeCredito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NotaDeCreditoID" Type="int" Mode="InOut" />
+    <Parameter Name="FacturaID" Type="int" Mode="In" />
+    <Parameter Name="FacturaAplicarID" Type="int" Mode="In" />
+    <Parameter Name="Fecha" Type="datetime" Mode="In" />
+    <Parameter Name="UserID" Type="int" Mode="In" />
+    <Parameter Name="NCF" Type="varchar" Mode="In" />
+    <Parameter Name="FechaVencimiento" Type="date" Mode="In" />
+    <Parameter Name="ValorAplicado" Type="decimal" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarOrdenCompra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OrdenCompraID" Type="int" Mode="InOut" />
+    <Parameter Name="ProveedorID" Type="int" Mode="In" />
+    <Parameter Name="FechaPedido" Type="datetime" Mode="In" />
+    <Parameter Name="Estatus" Type="bit" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductoID" Type="int" Mode="InOut" />
+    <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Referencia" Type="varchar" Mode="In" />
+    <Parameter Name="CategoriaID" Type="int" Mode="In" />
+    <Parameter Name="Marca" Type="varchar" Mode="In" />
+    <Parameter Name="Existencia" Type="float" Mode="In" />
+    <Parameter Name="PrecioCompra" Type="decimal" Mode="In" />
+    <Parameter Name="PrecioVenta" Type="decimal" Mode="In" />
+    <Parameter Name="ProveedorID" Type="int" Mode="In" />
+    <Parameter Name="CodigoBarra" Type="varchar" Mode="In" />
+    <Parameter Name="Calidad" Type="varchar" Mode="In" />
+    <Parameter Name="ITBIS" Type="bit" Mode="In" />
+    <Parameter Name="Descuento" Type="decimal" Mode="In" />
+    <Parameter Name="CantMin" Type="float" Mode="In" />
+    <Parameter Name="CantMax" Type="float" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarProveedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProveedorID" Type="int" Mode="InOut" />
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="CedulaORnc" Type="varchar" Mode="In" />
+    <Parameter Name="Direccion" Type="varchar" Mode="In" />
+    <Parameter Name="Contacto_1" Type="varchar" Mode="In" />
+    <Parameter Name="Contacto_2" Type="varchar" Mode="In" />
+    <Parameter Name="DatoAdicional" Type="varchar" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarTipoPago" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TipoPagoID" Type="int" Mode="InOut" />
+    <Parameter Name="TipoDePago" Type="varchar" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarTiposFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TipoFacturaID" Type="int" Mode="InOut" />
+    <Parameter Name="TipoFactura" Type="varchar" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_InsertarUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="int" Mode="InOut" />
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="UserPassword" Type="varchar" Mode="In" />
+    <Parameter Name="UserLevel" Type="int" Mode="In" />
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_Menu_1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_Menu_2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_SubMenu_1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_SubMenu_2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_ValidarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="User" Type="varchar" Mode="In" />
+    <Parameter Name="Password" Type="varchar" Mode="In" />
+    <Parameter Name="Resultado" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="proc_VerificarLimite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="resultado" Type="bit" Mode="InOut" />
+    <Parameter Name="ClienteID" Type="int" Mode="In" />
+    <Parameter Name="MontoFactura" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="proc_VerTipoPagoUltimaFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_VerTipoUltimaFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="SistemaFacturacionRepuestoJoanModelStoreContainer">
+    <EntitySet Name="CategoriasProd" EntityType="Self.CategoriasProd" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CobrosVentasCredito" EntityType="Self.CobrosVentasCredito" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetalleFacturas" EntityType="Self.DetalleFacturas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetalleNotaDeCredito" EntityType="Self.DetalleNotaDeCredito" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetalleOrdenesCompra" EntityType="Self.DetalleOrdenesCompra" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Facturas" EntityType="Self.Facturas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FacturasCompra" EntityType="Self.FacturasCompra" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LineasCreditoVentas" EntityType="Self.LineasCreditoVentas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NotasDeCredito" EntityType="Self.NotasDeCredito" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrdenesCompra" EntityType="Self.OrdenesCompra" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubMenu" EntityType="Self.SubMenu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TiposFactura" EntityType="Self.TiposFactura" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TiposPago" EntityType="Self.TiposPago" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CobrosVentasCredito_LineasCredito" Association="Self.FK_CobrosVentasCredito_LineasCredito">
+      <End Role="LineasCreditoVentas" EntitySet="LineasCreditoVentas" />
+      <End Role="CobrosVentasCredito" EntitySet="CobrosVentasCredito" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CobrosVentasCredito_LineasCreditoVentas" Association="Self.FK_CobrosVentasCredito_LineasCreditoVentas">
+      <End Role="LineasCreditoVentas" EntitySet="LineasCreditoVentas" />
+      <End Role="CobrosVentasCredito" EntitySet="CobrosVentasCredito" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CobrosVentasCredito_Users" Association="Self.FK_CobrosVentasCredito_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="CobrosVentasCredito" EntitySet="CobrosVentasCredito" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleFacturas_Facturas" Association="Self.FK_DetalleFacturas_Facturas">
+      <End Role="Facturas" EntitySet="Facturas" />
+      <End Role="DetalleFacturas" EntitySet="DetalleFacturas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleFacturas_Productos" Association="Self.FK_DetalleFacturas_Productos">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="DetalleFacturas" EntitySet="DetalleFacturas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleNotaDeCredito_NotasDeCredito" Association="Self.FK_DetalleNotaDeCredito_NotasDeCredito">
+      <End Role="NotasDeCredito" EntitySet="NotasDeCredito" />
+      <End Role="DetalleNotaDeCredito" EntitySet="DetalleNotaDeCredito" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleNotaDeCredito_Productos" Association="Self.FK_DetalleNotaDeCredito_Productos">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="DetalleNotaDeCredito" EntitySet="DetalleNotaDeCredito" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleOrdenesCompra_OrdenesCompra" Association="Self.FK_DetalleOrdenesCompra_OrdenesCompra">
+      <End Role="OrdenesCompra" EntitySet="OrdenesCompra" />
+      <End Role="DetalleOrdenesCompra" EntitySet="DetalleOrdenesCompra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FacturasCompra_OrdenesCompra" Association="Self.FK_FacturasCompra_OrdenesCompra">
+      <End Role="OrdenesCompra" EntitySet="OrdenesCompra" />
+      <End Role="FacturasCompra" EntitySet="FacturasCompra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FacturasCompra_Proveedores" Association="Self.FK_FacturasCompra_Proveedores">
+      <End Role="Proveedores" EntitySet="Proveedores" />
+      <End Role="FacturasCompra" EntitySet="FacturasCompra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FacturasCompra_TiposPago" Association="Self.FK_FacturasCompra_TiposPago">
+      <End Role="TiposPago" EntitySet="TiposPago" />
+      <End Role="FacturasCompra" EntitySet="FacturasCompra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LineasCredito_Facturas" Association="Self.FK_LineasCredito_Facturas">
+      <End Role="Facturas" EntitySet="Facturas" />
+      <End Role="LineasCreditoVentas" EntitySet="LineasCreditoVentas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LineasCreditoVentas_Facturas" Association="Self.FK_LineasCreditoVentas_Facturas">
+      <End Role="Facturas" EntitySet="Facturas" />
+      <End Role="LineasCreditoVentas" EntitySet="LineasCreditoVentas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NotasDeCredito_Facturas" Association="Self.FK_NotasDeCredito_Facturas">
+      <End Role="Facturas" EntitySet="Facturas" />
+      <End Role="NotasDeCredito" EntitySet="NotasDeCredito" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NotasDeCredito_Users" Association="Self.FK_NotasDeCredito_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="NotasDeCredito" EntitySet="NotasDeCredito" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Productos_CategoriasProd" Association="Self.FK_Productos_CategoriasProd">
+      <End Role="CategoriasProd" EntitySet="CategoriasProd" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Productos_Proveedores" Association="Self.FK_Productos_Proveedores">
+      <End Role="Proveedores" EntitySet="Proveedores" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubMenu_Menu" Association="Self.FK_SubMenu_Menu">
+      <End Role="Menu" EntitySet="Menu" />
+      <End Role="SubMenu" EntitySet="SubMenu" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
